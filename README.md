@@ -1,2 +1,2 @@
-# Ubuntu Web App Backend
-Handles the API for Ubuntu Web App
+# Ubuntu Web App Frontend
+Handles the UI for Ubuntu Web App
