@@ -1,0 +1,54 @@
+<img class="bg_img" src="{{bg_src}}">
+
+<div class="container">
+	<div class="headbar">
+		<span>Activities</span>
+		<span>{{todayDay}} {{time}}</span>
+		<div class="infos">
+			<i class="icon fas fa-comments"></i>
+			<i class="icon fas fa-volume-up"></i>
+			<i class="icon fas fa-battery-three-quarters"></i>
+			<i class="icon fas fa-caret-down"></i>
+		</div>
+	</div>
+	<div class="sidebar">
+		<i class="icon fab fa-firefox"></i>
+		<i class="icon fas fa-folder-open"></i>
+		<i class="icon fas fa-store"></i>
+		<i class="icon fas fa-question-circle"></i>
+		<i class="icon fab fa-ubuntu"></i>
+		<i class="icon fas fa-trash"></i>
+	</div>
+	<div class="main-content" id="main_content">
+
+		<ul class="context-menu" [class.active]="contextMenuOpen">
+			<li *ngFor="let item of contextMenuItems" (click)="contextAction(item.action)"
+				[class.deactive]="!item.active">{{item.name}}
+				<span>{{item.shortcut}}</span>
+			</li>
+		</ul>
+
+		<div class="desktop_folders">
+			<div class="folders" *ngFor="let folder of desktopFolders"
+				(contextmenu)="onRightClick(folder.name)">
+				<i class="fas {{ folder.type == 'folder' ? 'fa-folder' : 'fa-file' }}"></i>
+				<span>{{folder.name}}</span>
+				<span class="delete" id="{{folder.name}}" (click)="deleteFolder(folder.name)">Delete <span>X</span></span>
+			</div>
+		</div>
+
+		<div class="trash" [class.active]="selectedFolder != null">
+			<div class="header"><span>{{selectedFolder != null ? selectedFolder[0]?.name : ''}}</span> <span
+					(click)="closeFolder()">X</span></div>
+			<div class="body">
+				<div class="folder-list" *ngIf="selectedFolder == null ? '' : selectedFolder[0].children.length > 0">
+					<div class="folders" *ngFor="let item of selectedFolder[0]?.children"
+						(contextmenu)="onRightClick($event)" (dblclick)="openFolder(item.name, false, selectedFolder[0]?.name)">
+						<i class="fas {{ item.type == 'folder' ? 'fa-folder' : 'fa-file' }}"></i>
+						<span>{{item.name}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

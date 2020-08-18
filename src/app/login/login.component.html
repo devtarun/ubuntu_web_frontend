@@ -1,0 +1,33 @@
+<img class="bg_img" src="{{bg_src}}">
+
+<div class="container">
+	<div class="headbar">
+		<span>Ubuntu</span>
+		<span>{{todayDay}} {{time}}</span>
+		<div class="infos">
+			<i class="icon fas fa-comments"></i>
+			<i class="icon fas fa-volume-up"></i>
+			<i class="icon fas fa-battery-three-quarters"></i>
+			<i class="icon fas fa-caret-down"></i>
+		</div>
+	</div>
+
+	<div class="main-content" id="main_content">
+		<div class="user-card" [class.active]="selectedUser == null">
+			<div class="body">
+				<div class="user-list">
+					<div *ngFor="let user of desktopUsers" (click)="loginUser(user._id, user.userName)"><i class="fas fa-user"></i> {{user.userName}}</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="login-card" [class.active]="selectedUser != null">
+			<div class="header">
+				<span>UserName</span>
+			</div>
+			<div class="body">
+				<input type="password" class="field-password" placeholder="Password" (keyup.enter)="logIn($event)">
+			</div>
+		</div>
+	</div>
+</div>
